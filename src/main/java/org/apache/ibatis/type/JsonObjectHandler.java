@@ -1,0 +1,35 @@
+package org.apache.ibatis.type;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
+import java.sql.CallableStatement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
+@MappedTypes({JSONObject.class})
+@MappedJdbcTypes(JdbcType.VARCHAR)
+public class JsonObjectHandler extends BaseTypeHandler<JSONObject> {
+    @Override
+    public void setNonNullParameter(PreparedStatement preparedStatement, int i, JSONObject jsonObject, JdbcType jdbcType) throws SQLException {
+        preparedStatement.setString(i, JSON.toJSONString(jsonObject));
+    }
+
+    @Override
+    public JSONObject getNullableResult(ResultSet resultSet, String s) throws SQLException {
+        return JSON.parseObject(resultSet.getString(s));
+    }
+
+    @Override
+    public JSONObject getNullableResult(ResultSet resultSet, int i) throws SQLException {
+        return JSON.parseObject(resultSet.getString(i));
+
+    }
+
+    @Override
+    public JSONObject getNullableResult(CallableStatement callableStatement, int i) throws SQLException {
+        return JSON.parseObject(callableStatement.getString(i));
+    }
+}

@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RSAEncryptType extends BaseTypeHandler<String> {
+public class RSAEncryptHandler extends BaseTypeHandler<String> {
 
     static final Charset charset = CharsetUtil.CHARSET_UTF_8;
     static final RSA rsa =  SecureUtil.rsa(

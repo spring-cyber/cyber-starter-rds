@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TelDesensitizedType extends BaseTypeHandler<String> {
+public class AESEncryptHandler extends BaseTypeHandler<String> {
 
     static final Charset charset = CharsetUtil.CHARSET_UTF_8;
     static final AES aes =  SecureUtil.aes(HexUtil.decodeHex("696cd329e6b3b680adf5779dce1adb52"));
@@ -28,23 +28,16 @@ public class TelDesensitizedType extends BaseTypeHandler<String> {
 
     @Override
     public String getNullableResult(ResultSet resultSet, String s) throws SQLException {
-        return desensitizedTel(aes.decryptStr(HexUtil.decodeHexStr(resultSet.getString(s)),charset));
+        return aes.decryptStr(HexUtil.decodeHexStr(resultSet.getString(s)),charset);
     }
 
     @Override
     public String getNullableResult(ResultSet resultSet, int i) throws SQLException {
-        return desensitizedTel(aes.decryptStr(HexUtil.decodeHexStr(resultSet.getString(i)),charset));
+        return aes.decryptStr(HexUtil.decodeHexStr(resultSet.getString(i)),charset);
     }
 
     @Override
     public String getNullableResult(CallableStatement callableStatement, int i) throws SQLException {
-        return desensitizedTel(aes.decryptStr(HexUtil.decodeHexStr(callableStatement.getString(i)),charset));
-    }
-
-    private String desensitizedTel(String phoneNumber){
-        if(StringUtils.isNotEmpty(phoneNumber)){
-            phoneNumber = phoneNumber.replaceAll("(\\w{3})\\w*(\\w{4})", "$1****$2");
-        }
-        return phoneNumber;
+        return aes.decryptStr(HexUtil.decodeHexStr(callableStatement.getString(i)),charset);
     }
 }
