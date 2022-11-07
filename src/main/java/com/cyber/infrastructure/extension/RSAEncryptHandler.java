@@ -1,4 +1,4 @@
-package org.apache.ibatis.type;
+package com.cyber.infrastructure.extension;
 
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.HexUtil;
@@ -6,6 +6,8 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.JdbcType;
 
 import java.nio.charset.Charset;
 import java.sql.CallableStatement;

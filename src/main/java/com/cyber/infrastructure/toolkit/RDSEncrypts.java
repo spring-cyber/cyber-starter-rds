@@ -1,4 +1,4 @@
-package com.cyber.utils;
+package com.cyber.infrastructure.toolkit;
 
 import org.apache.commons.codec.binary.Hex;
 

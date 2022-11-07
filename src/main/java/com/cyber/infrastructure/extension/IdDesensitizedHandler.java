@@ -1,10 +1,13 @@
-package org.apache.ibatis.type;
+package com.cyber.infrastructure.extension;
 
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.HexUtil;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.AES;
+import com.google.common.base.Strings;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.type.BaseTypeHandler;
+import org.apache.ibatis.type.JdbcType;
 
 import java.nio.charset.Charset;
 import java.sql.CallableStatement;
@@ -12,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class GenericDesensitizedHandler extends BaseTypeHandler<String> {
+public class IdDesensitizedHandler extends BaseTypeHandler<String> {
 
     static final Charset charset = CharsetUtil.CHARSET_UTF_8;
     static final AES aes =  SecureUtil.aes(HexUtil.decodeHex("696cd329e6b3b680adf5779dce1adb52"));
@@ -28,18 +31,28 @@ public abstract class GenericDesensitizedHandler extends BaseTypeHandler<String>
 
     @Override
     public String getNullableResult(ResultSet resultSet, String s) throws SQLException {
-        return desensitized(aes.decryptStr(HexUtil.decodeHexStr(resultSet.getString(s)),charset));
+        return desensitizedId(aes.decryptStr(HexUtil.decodeHexStr(resultSet.getString(s)),charset));
     }
 
     @Override
     public String getNullableResult(ResultSet resultSet, int i) throws SQLException {
-        return desensitized(aes.decryptStr(HexUtil.decodeHexStr(resultSet.getString(i)),charset));
+        return desensitizedId(aes.decryptStr(HexUtil.decodeHexStr(resultSet.getString(i)),charset));
     }
 
     @Override
     public String getNullableResult(CallableStatement callableStatement, int i) throws SQLException {
-        return desensitized(aes.decryptStr(HexUtil.decodeHexStr(callableStatement.getString(i)),charset));
+        return desensitizedId(aes.decryptStr(HexUtil.decodeHexStr(callableStatement.getString(i)),charset));
     }
 
-    abstract String desensitized(String value);
+    private String desensitizedId(String idNumber){
+        if (!Strings.isNullOrEmpty(idNumber)) {
+            if (idNumber.length() == 15){
+                idNumber = idNumber.replaceAll("(\\w{6})\\w*(\\w{3})", "$1******$2");
+            }
+            if (idNumber.length() == 18){
+                idNumber = idNumber.replaceAll("(\\w{6})\\w*(\\w{3})", "$1*********$2");
+            }
+        }
+        return idNumber;
+    }
 }

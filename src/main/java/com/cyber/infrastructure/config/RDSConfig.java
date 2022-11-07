@@ -1,6 +1,6 @@
-package com.cyber.config;
+package com.cyber.infrastructure.config;
 
-import com.cyber.utils.RDSEncrypts;
+import com.cyber.infrastructure.toolkit.RDSEncrypts;
 import com.ulisesbocchio.jasyptspringboot.EncryptablePropertyDetector;
 import com.ulisesbocchio.jasyptspringboot.EncryptablePropertyResolver;
 import org.apache.commons.lang3.StringUtils;
@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 import java.security.PrivateKey;
 
