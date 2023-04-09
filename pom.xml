@@ -15,7 +15,7 @@
     <artifactId>cyber-starter-rds</artifactId>
     <version>0.0.2</version>
 
-    <name>cyber-starter-sso</name>
+    <name>cyber-starter-rds</name>
     <url>https://github.com/spring-cyber</url>
     <description>Cyber Starter RDS Project</description>
 
