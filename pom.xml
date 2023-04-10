@@ -13,7 +13,7 @@
 
     <groupId>io.github.spring-cyber</groupId>
     <artifactId>cyber-starter-rds</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 
     <name>cyber-starter-rds</name>
     <url>https://github.com/spring-cyber</url>
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>io.github.spring-cyber</groupId>
             <artifactId>cyber-core</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.6</version>
         </dependency>
 
         <dependency>
